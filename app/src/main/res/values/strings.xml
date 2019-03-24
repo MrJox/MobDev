@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MDLab1</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="singUp">Sign Up</string>
+</resources>
