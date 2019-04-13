@@ -50,8 +50,9 @@ public class CategoriesHandler implements HttpHandler {
                 case 5: {
                     String resource = nodes.get(3);
                     if (resource.equals("goods")) {
+                        int categoryId = Integer.parseInt(nodes.get(2));
                         int productId = Integer.parseInt(nodes.get(4));
-                        ProductEntity product = SimpleHttpServer.findProduct(productId);
+                        ProductEntity product = SimpleHttpServer.findProduct(categoryId, productId);
                         data.put("product", product);
                         statusCode = StatusCodes.OK;
                     } else {
