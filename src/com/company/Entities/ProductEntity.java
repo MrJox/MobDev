@@ -1,25 +1,23 @@
 package com.company.Entities;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CategoryEntity {
+public class ProductEntity {
     private static int _id = 0;
     private int id;
     private String name;
-    private List<ProductEntity> products;
+    private int price;
 
-    public CategoryEntity(String name) {
+    public ProductEntity(String name, int price) {
         this.id = _id++;
         this.name = name;
-        this.products = new ArrayList<>();
+        this.price = price;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addProduct(ProductEntity product) {
-        this.products.add(product);
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getId() {
@@ -30,7 +28,7 @@ public class CategoryEntity {
         return this.name;
     }
 
-    public List<ProductEntity> getProducts() {
-        return this.products;
+    public int getPrice() {
+        return this.price;
     }
 }
