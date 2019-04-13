@@ -53,8 +53,12 @@ public class CategoriesHandler implements HttpHandler {
                         int categoryId = Integer.parseInt(nodes.get(2));
                         int productId = Integer.parseInt(nodes.get(4));
                         ProductEntity product = SimpleHttpServer.findProduct(categoryId, productId);
-                        data.put("product", product);
-                        statusCode = StatusCodes.OK;
+                        if (product != null) {
+                            data.put("product", product);
+                            statusCode = StatusCodes.OK;
+                        } else {
+                            statusCode = StatusCodes.NOT_FOUND;
+                        }
                     } else {
                         statusCode = StatusCodes.NOT_FOUND;
                     }
