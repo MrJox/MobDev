@@ -1,29 +1,35 @@
 package com.example.lab3.DataProviders;
 import com.example.lab3.API.*;
-import com.example.lab3.Interfaces.IDataProvider;
-import com.example.lab3.Models.CategoryModel;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import com.example.lab3.Models.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RestDataProvider implements IDataProvider {
-    ArrayList<CategoryModel> categories;
+    public RestDataProvider() { }
 
-    public RestDataProvider() {
-        categories = new ArrayList<>();
+    @Override
+    public ResponseModel authorize(CredentialsModel credentials) {
+        try {
+            Map<String, Object> body = new HashMap<>();
+            body.put("login", credentials.getLogin());
+            body.put("pswd", credentials.getPswd());
+            return new RequestManager(Constants.AUTHORIZE, Methods.POST, body).execute().get();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public ArrayList<CategoryModel> fetchCategories() throws IOException {
+    public ResponseModel signup(CredentialsModel credentials) {
         try {
-            String json = new HttpUrlConnectionReader(Constants.GET_CATEGORIES, "GET").execute().get();
-            Type type = new TypeToken<ArrayList<CategoryModel>>() {}.getType();
-            categories = new Gson().fromJson(json, type);
+            Map<String, Object> body = new HashMap<>();
+            body.put("login", credentials.getLogin());
+            body.put("pswd", credentials.getPswd());
+            return new RequestManager(Constants.SIGNUP, Methods.POST, body).execute().get();
         } catch (Exception ex) {
             ex.printStackTrace();
+            return null;
         }
-        return categories;
     }
 }

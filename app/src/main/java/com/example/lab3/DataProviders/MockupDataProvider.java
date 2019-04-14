@@ -1,18 +1,17 @@
 package com.example.lab3.DataProviders;
-import com.example.lab3.Interfaces.IDataProvider;
-import com.example.lab3.Models.CategoryModel;
-import java.util.ArrayList;
+import com.example.lab3.Models.CredentialsModel;
+import com.example.lab3.Models.ResponseModel;
 
 public class MockupDataProvider implements IDataProvider {
-    private ArrayList<CategoryModel> categories;
+    public MockupDataProvider() { }
 
-    public MockupDataProvider() {
-        categories = new ArrayList<>();
-        categories.add(new CategoryModel("Mockup category"));
+    @Override
+    public ResponseModel authorize(CredentialsModel credentials) {
+        return new ResponseModel(200, "success", null, null);
     }
 
     @Override
-    public ArrayList<CategoryModel> fetchCategories() {
-        return categories;
+    public ResponseModel signup(CredentialsModel credentials) {
+        return new ResponseModel(200, "success", null, null);
     }
 }
