@@ -42,8 +42,8 @@ public class AuthHandler implements HttpHandler {
             }
         }
 
-        httpExchange.sendResponseHeaders(statusCode, 0);
         response = new Gson().toJson(new ResponseEntity(statusCode, null));
+        httpExchange.sendResponseHeaders(statusCode, response.getBytes().length);
         try (final OutputStream os = httpExchange.getResponseBody()) {
             os.write(response.getBytes());
         }
@@ -53,7 +53,7 @@ public class AuthHandler implements HttpHandler {
         if (credentials.getLogin() == null || credentials.getPswd() == null) {
             return false;
         }
-        
+
         for (UserEntity existingUser: SimpleHttpServer.users) {
             if (existingUser.getCredentials().equals(credentials))
                 return existingUser.authorize();

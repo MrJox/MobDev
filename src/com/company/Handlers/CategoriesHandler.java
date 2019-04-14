@@ -69,8 +69,8 @@ public class CategoriesHandler implements HttpHandler {
             }
         }
 
-        httpExchange.sendResponseHeaders(statusCode, 0);
         response = new Gson().toJson(new ResponseEntity(statusCode, data));
+        httpExchange.sendResponseHeaders(statusCode, response.getBytes().length);
         try (final OutputStream os = httpExchange.getResponseBody()) {
             os.write(response.getBytes());
         }
