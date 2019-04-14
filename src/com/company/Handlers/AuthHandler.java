@@ -50,6 +50,10 @@ public class AuthHandler implements HttpHandler {
     }
 
     private boolean validate(CredentialsEntity credentials) {
+        if (credentials.getLogin() == null || credentials.getPswd() == null) {
+            return false;
+        }
+        
         for (UserEntity existingUser: SimpleHttpServer.users) {
             if (existingUser.getCredentials().equals(credentials))
                 return existingUser.authorize();
@@ -58,6 +62,10 @@ public class AuthHandler implements HttpHandler {
     }
 
     private boolean signup(CredentialsEntity credentials) {
+        if (credentials.getLogin() == null || credentials.getPswd() == null) {
+            return false;
+        }
+
         for (UserEntity existingUser: SimpleHttpServer.users) {
             if (existingUser.getCredentials().equals(credentials)) {
                 return false;
