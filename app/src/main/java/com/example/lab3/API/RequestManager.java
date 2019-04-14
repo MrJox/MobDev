@@ -50,13 +50,13 @@ public class RequestManager extends AsyncTask<String, Void, ResponseModel> {
             connection.setReadTimeout(timeout);
 
             // set body
-            OutputStream os = connection.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-            String requestJson = new Gson().toJson(this.body);
-            osw.write(requestJson);
-            osw.flush();
-            osw.close();
-            os.close();
+            try (OutputStream os = connection.getOutputStream()) {
+                try (OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
+                    String requestJson = new Gson().toJson(this.body);
+                    osw.write(requestJson);
+                    osw.flush();
+                }
+            }
 
             // send request
             connection.connect();
