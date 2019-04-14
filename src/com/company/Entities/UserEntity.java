@@ -28,9 +28,9 @@ public class UserEntity {
     }
 
     public boolean authorize() {
-        if (this.isAuth) {
-            return false;
-        }
+//        if (this.isAuth) {
+//            return false;
+//        }
 
         // todo: start session timer
         this.isAuth = true;
