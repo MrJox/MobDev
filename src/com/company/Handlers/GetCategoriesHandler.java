@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GetCategoriesHandler implements HttpHandler {
     @Override
@@ -18,7 +20,9 @@ public class GetCategoriesHandler implements HttpHandler {
         }
 
         headers.set("Content-Type", "application/json");
-        String json = new Gson().toJson(SimpleHttpServer.categories);
+        Map<String, Object> map = new HashMap<>();
+        map.put("categories", SimpleHttpServer.categories);
+        String json = new Gson().toJson(map);
         httpExchange.sendResponseHeaders(StatusCodes.OK, json.getBytes().length);
         OutputStream os = httpExchange.getResponseBody();
         os.write(json.getBytes());
